@@ -1,6 +1,9 @@
 import net from 'net';
+import dotenv from 'dotenv';
 
-const PORT = 5555;
+dotenv.config();
+
+const PORT = process.env.PORT;
 
 const server = net.createServer((socket) => {
   console.log(`Client connected from: ${socket.remoteAddress}:${socket.remotePort}`);
