@@ -1,10 +1,6 @@
 import net from 'net';
-import dotenv from 'dotenv';
 import initServer from './init/index.js';
-
-dotenv.config();
-
-const PORT = process.env.PORT;
+import { config } from './config/config.js';
 
 const server = net.createServer((socket) => {
   console.log(`Client connected from: ${socket.remoteAddress}: ${socket.remotePort}`);
@@ -24,8 +20,8 @@ const server = net.createServer((socket) => {
 
 initServer()
   .then(() => {
-    server.listen(PORT, () => {
-      console.log(`TCP server listening on port ${PORT}`);
+    server.listen(config.server.port, () => {
+      console.log(`TCP server listening on port ${config.server.port}`);
       console.log(server.address());
     });
   })
