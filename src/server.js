@@ -1,5 +1,6 @@
 import net from 'net';
 import dotenv from 'dotenv';
+import initServer from './init/index.js';
 
 dotenv.config();
 
@@ -21,7 +22,14 @@ const server = net.createServer((socket) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`TCP server listening on port ${PORT}`);
-  console.log(server.address());
-});
+initServer()
+  .then(() => {
+    server.listen(PORT, () => {
+      console.log(`TCP server listening on port ${PORT}`);
+      console.log(server.address());
+    });
+  })
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
