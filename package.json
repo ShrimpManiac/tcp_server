@@ -2,9 +2,10 @@
   "name": "tcp_server",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "dev": "node server.js",
-    "client": "node client.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "repository": {
     "url": "https://github.com/ShrimpManiac/tcp_server",
@@ -12,7 +13,6 @@
   },
   "author": "ShrimpManiac",
   "license": "MIT",
-  "type": "module",
   "dependencies": {
     "dotenv": "^16.4.5",
     "lodash": "^4.17.21",
