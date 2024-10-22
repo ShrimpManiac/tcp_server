@@ -1,0 +1,12 @@
+{
+  "name": "tcp_server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "client": "node client.js"
+  },
+  "author": "ShrimpManiac",
+  "license": "MIT",
+  "type": "module"
+}
