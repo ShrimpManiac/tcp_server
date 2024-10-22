@@ -6,14 +6,14 @@ dotenv.config();
 const PORT = process.env.PORT;
 
 const server = net.createServer((socket) => {
-  console.log(`Client connected from: ${socket.remoteAddress}:${socket.remotePort}`);
+  console.log(`Client connected from: ${socket.remoteAddress}: ${socket.remotePort}`);
 
   socket.on('data', (data) => {
     console.log(data);
   });
 
   socket.on('end', () => {
-    console.log('Client disconnected');
+    console.log(`Client disconnected: ${socket.remoteAddress}: ${socket.remotePort}`);
   });
 
   socket.on('error', (err) => {
@@ -22,6 +22,6 @@ const server = net.createServer((socket) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Echo server listening on port ${PORT}`);
+  console.log(`TCP server listening on port ${PORT}`);
   console.log(server.address());
 });
