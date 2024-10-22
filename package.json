@@ -6,6 +6,10 @@
     "dev": "node server.js",
     "client": "node client.js"
   },
+  "repository": {
+    "url": "https://github.com/ShrimpManiac/tcp_server",
+    "type": "git"
+  },
   "author": "ShrimpManiac",
   "license": "MIT",
   "type": "module"
