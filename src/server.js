@@ -3,14 +3,14 @@ import initServer from './init/index.js';
 import { config } from './config/config.js';
 
 const server = net.createServer((socket) => {
-  console.log(`Client connected from: ${socket.remoteAddress}: ${socket.remotePort}`);
+  console.log(`Client connected from: ${socket.remoteAddress} : ${socket.remotePort}`);
 
   socket.on('data', (data) => {
     console.log(data);
   });
 
   socket.on('end', () => {
-    console.log(`Client disconnected: ${socket.remoteAddress}: ${socket.remotePort}`);
+    console.log(`Client disconnected: ${socket.remoteAddress} : ${socket.remotePort}`);
   });
 
   socket.on('error', (err) => {
@@ -20,8 +20,8 @@ const server = net.createServer((socket) => {
 
 initServer()
   .then(() => {
-    server.listen(config.server.port, () => {
-      console.log(`TCP server listening on port ${config.server.port}`);
+    server.listen(config.server.port, config.server.host, () => {
+      console.log(`TCP server listening on port ${config.server.host} : ${config.server.port}`);
       console.log(server.address());
     });
   })
