@@ -56,7 +56,7 @@ export const loadGameAssets = async () => {
     gameAssets = { stages, items, itemUnlocks };
     return gameAssets;
   } catch (e) {
-    throw new Error('Failed to load game assets: ' + e.message);
+    throw new Error('게임에셋을 로드하는데 실패했습니다: ' + e.message);
   }
 };
 
@@ -147,7 +147,7 @@ export const findFirstGameAsset = (assetType) => {
 export const getStageNumber = (stageId) => {
   const { stages } = gameAssets;
   const stageDataIndex = stages.data.findIndex((stage) => stage.id === stageId);
-  if (stageDataIndex === -1) throw new Error('Not found stage');
+  if (stageDataIndex === -1) throw new Error(`Stage not found: ${stageId}`);
   const stageNumber = stageDataIndex + 1;
   return stageNumber;
 };

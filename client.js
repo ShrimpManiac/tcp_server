@@ -64,7 +64,7 @@ client.on('data', (data) => {
   // 메시지 추출
   const message = buffer.subarray(headerSize); // 앞의 헤더 부분을 잘라낸다.
 
-  console.log(`Message received from server: ${message}`);
+  console.log(`서버로부터 받은 메세지: ${message}`);
 });
 
 client.on('close', () => {
