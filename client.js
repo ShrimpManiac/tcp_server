@@ -1,5 +1,6 @@
 import net from 'net';
 import { config } from './src/config/config.js';
+import { getProtoMessages, loadProtos } from './src/init/loadProtos.js';
 
 const readHeader = (buffer) => {
   return {
@@ -8,25 +9,48 @@ const readHeader = (buffer) => {
   };
 };
 
-const writeHeader = (length, packetType) => {
-  const headerSize = config.packet.totalLength + config.packet.typeLength;
-  const buffer = Buffer.alloc(headerSize);
-  buffer.writeUInt32BE(length + headerSize, 0);
-  buffer.writeUInt8(packetType, config.packet.totalLength);
-  return buffer;
+const sendPacket = (socket, packet) => {
+  const protoMessages = getProtoMessages();
+  const Packet = protoMessages.common.Packet;
+  if (!Packet) {
+    console.error('Packet 메시지를 찾을 수 없습니다.');
+    return;
+  }
+
+  const buffer = Packet.encode(packet).finish();
+
+  // 패킷 길이 정보를 포함한 버퍼 생성
+  const packetLength = Buffer.alloc(config.packet.totalLength);
+  packetLength.writeUInt32BE(
+    buffer.length + config.packet.totalLength + config.packet.typeLength,
+    0,
+  ); // 패킷 길이에 타입 바이트 포함
+
+  // 패킷 타입 정보를 포함한 버퍼 생성
+  const packetType = Buffer.alloc(config.packet.typeLength);
+  packetType.writeUInt8(1, 0); // NORMAL TYPE
+
+  // 길이 정보와 메시지를 함께 전송
+  const packetWithLength = Buffer.concat([packetLength, packetType, buffer]);
+
+  socket.write(packetWithLength);
 };
 
 const client = new net.Socket();
 
-client.connect(config.server.port, config.server.host, () => {
+client.connect(config.server.port, config.server.host, async () => {
   console.log('Connected to server');
+  await loadProtos();
 
-  const message = 'Hi there!';
-  const test = Buffer.from(message);
+  const message = {
+    handlerId: 2,
+    userId: 'xyz',
+    payload: {},
+    clientVersion: '1.0.0',
+    sequence: 0,
+  };
 
-  const header = writeHeader(test.length, 11);
-  const packet = Buffer.concat([header, test]);
-  client.write(packet);
+  sendPacket(client, message);
 });
 
 client.on('data', (data) => {
