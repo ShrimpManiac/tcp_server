@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { ASSET_TYPE } from '../constants/constants.js';
+import { ASSET_TYPE } from '../constants/assets.js';
 
 /**
  * 로드한 게임에셋
