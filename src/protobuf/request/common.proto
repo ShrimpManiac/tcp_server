@@ -3,7 +3,7 @@ syntax = 'proto3';
 package common;
 
 message Packet {
-  unit32 handlerId = 1;
+  uint32 handlerId = 1;
   string userId = 2;
   string clientVersion = 3;
   uint32 sequence = 4;
