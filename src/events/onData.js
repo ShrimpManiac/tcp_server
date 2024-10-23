@@ -2,6 +2,9 @@ import { config } from '../config/config.js';
 import { PACKET_TYPE } from '../constants/header.js';
 import { getHandlerById } from '../handlers/index.js';
 import { getuserById } from '../session/user.session.js';
+import CustomError from '../utils/error/customError.js';
+import { ErrorCodes } from '../utils/error/errorCodes.js';
+import { handleError } from '../utils/error/errorHandler.js';
 import { packetParser } from '../utils/parser/packetParser.js';
 
 export const onData = (socket) => async (data) => {
@@ -23,24 +26,28 @@ export const onData = (socket) => async (data) => {
     console.log(`length: ${length}, packetType: ${packetType}`);
     console.log(`packet: ${packet}`);
 
-    switch (packetType) {
-      case PACKET_TYPE.PING: {
-        break;
-      }
-      case PACKET_TYPE.NORMAL: {
-        const { handlerId, userId, payload, sequence } = packetParser(packet);
-
-        // 검증: 시퀀스 일치
-        const user = getuserById(userId);
-        if (user && user.sequence !== sequence) {
-          console.error(`잘못된 호출값입니다.`);
+    try {
+      switch (packetType) {
+        case PACKET_TYPE.PING: {
+          break;
         }
+        case PACKET_TYPE.NORMAL: {
+          const { handlerId, userId, payload, sequence } = packetParser(packet);
 
-        const handler = getHandlerById(handlerId);
-        await handler({ socket, userId, payload });
+          // 검증: 시퀀스 일치
+          const user = getuserById(userId);
+          if (user && user.sequence !== sequence) {
+            throw new CustomError(ErrorCodes.INVALID_SEQUENCE, `잘못된 호출값입니다.`);
+          }
 
-        break;
+          const handler = getHandlerById(handlerId);
+          await handler({ socket, userId, payload });
+
+          break;
+        }
       }
+    } catch (error) {
+      handleError(socket, error);
     }
   }
 };
