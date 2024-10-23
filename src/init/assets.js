@@ -85,12 +85,12 @@ export const getGameAsset = (assetType) => {
 /**
  * 게임에셋의 특정 데이터를 id로 조회하는 함수
  *
- * 호출 예시: const stageData = findGameAsset(ASSET_TYPE.STAGE, stageId);
+ * 호출 예시: const stageData = getGameAssetById(ASSET_TYPE.STAGE, stageId);
  * @param {ASSET_TYPE} assetType 조회할 게임에셋 타입
  * @param {number} id 조회할 항목의 id
  * @returns {JSON} 해당 id의 항목 ( 예시: { "id: 1001, score: 0, scorePerSecond: 1" } )
  */
-export const findGameAsset = (assetType, id) => {
+export const getGameAssetById = (assetType, id) => {
   const { stages, items, itemUnlocks } = gameAssets;
 
   switch (assetType) {
@@ -108,23 +108,23 @@ export const findGameAsset = (assetType, id) => {
 /**
  * 특정 게임에셋의 다음 항목을 조회하는 함수
  *
- * 호출 예시: const nextStage = findNextGameAsset(ASSET_TYPE.STAGE, stageId);
+ * 호출 예시: const nextStage = getNextGameAsset(ASSET_TYPE.STAGE, stageId);
  * @param {ASSET_TYPE} assetType 조회할 게임에셋 타입
  * @param {number} id 현재 항목의 id ( 예시: 1001 )
  * @returns {JSON} 다음 id의 항목 ( 예시: { "id: 1002, score: 10, scorePerSecond: 2" } )
  */
-export const findNextGameAsset = (assetType, id) => {
-  return findGameAsset(assetType, id + 1);
+export const getNextGameAsset = (assetType, id) => {
+  return getGameAssetById(assetType, id + 1);
 };
 
 /**
  * 특정 게임에셋의 첫 항목을 조회하는 함수
  *
- * 호출 예시: const firstStage = findFirstGameAsset(ASSET_TYPE.STAGE);
+ * 호출 예시: const firstStage = getFirstGameAsset(ASSET_TYPE.STAGE);
  * @param {ASSET_TYPE} assetType 조회할 게임에셋 타입
  * @returns {JSON} 지정한 게임애셋의 첫 항목 ( 예시: { "id: 1001, score: 0, scorePerSecond: 1" } )
  */
-export const findFirstGameAsset = (assetType) => {
+export const getFirstGameAsset = (assetType) => {
   const { stages, items, itemUnlocks } = gameAssets;
 
   switch (assetType) {
