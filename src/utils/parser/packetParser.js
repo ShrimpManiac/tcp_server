@@ -19,6 +19,7 @@ export const packetParser = (data) => {
   const clientVersion = packet.clientVersion;
   const sequence = packet.sequence;
 
+  // 검증: 클라이언트 버전 일치
   if (clientVersion !== config.clientVersion) {
     console.error(`클라이언트 버전이 일치하지 않습니다`);
   }
@@ -39,12 +40,13 @@ export const packetParser = (data) => {
     console.error('Payload를 디코딩하는데 실패했습니다', error);
   }
 
+  // 검증: 패킷 구조 일치
   const errorMessage = payloadType.verify(payload);
   if (errorMessage) {
-    console.error(errorMessage);
+    console.error(`패킷 구조가 일치하지 않습니다: ${errorMessage}`);
   }
 
-  // 필드가 비어있는 경우 (필수 필드가 누락된 경우)
+  // 검증: 누락된 필드 존재여부
   const expectedFields = Object.keys(payloadType.fields);
   const actualFields = Object.keys(payload);
   const missingFields = expectedFields.filter((field) => !actualFields.includes(field));
