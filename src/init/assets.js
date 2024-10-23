@@ -22,9 +22,9 @@ const __basePath = path.join(__dirname, '../../assets');
  */
 const readFileAsync = (filename) => {
   return new Promise((resolve, reject) => {
-    fs.readFile(path.join(__basePath, filename), 'utf8', (err, data) => {
-      if (err) {
-        reject(err);
+    fs.readFile(path.join(__basePath, filename), 'utf8', (error, data) => {
+      if (error) {
+        reject(error);
         return;
       }
       resolve(JSON.parse(data));

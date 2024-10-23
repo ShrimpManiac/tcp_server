@@ -71,6 +71,6 @@ client.on('close', () => {
   console.log('Connection closed');
 });
 
-client.on('error', (err) => {
-  console.error('Client error:', err);
+client.on('error', (error) => {
+  console.error('Client error:', error);
 });

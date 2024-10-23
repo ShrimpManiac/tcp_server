@@ -1,3 +1,3 @@
-export const onError = (socket) => (err) => {
-  console.error('Socket error:', err);
+export const onError = (socket) => (error) => {
+  console.error('Socket error:', error);
 };
