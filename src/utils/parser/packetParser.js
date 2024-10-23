@@ -30,11 +30,11 @@ export const packetParser = (data) => {
   }
 
   const [namespace, typeName] = protoTypeName.split('.');
-  const PayloadType = protoMessages[namespace][typeName];
-  let payload;
+  const payloadType = protoMessages[namespace][typeName];
 
+  let payload;
   try {
-    payload = PayloadType.decode(packet.payload);
+    payload = payloadType.decode(packet.payload);
   } catch (error) {
     console.error(error);
   }
