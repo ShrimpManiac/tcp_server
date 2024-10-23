@@ -21,7 +21,7 @@ export const packetParser = (data) => {
 
   // 검증: 클라이언트 버전 일치
   if (clientVersion !== config.clientVersion) {
-    console.error(`클라이언트 버전이 일치하지 않습니다`);
+    console.error(`클라이언트 버전이 일치하지 않습니다.`);
   }
 
   // Payload 파싱
@@ -37,13 +37,13 @@ export const packetParser = (data) => {
   try {
     payload = payloadType.decode(packet.payload);
   } catch (error) {
-    console.error('Payload를 디코딩하는데 실패했습니다', error);
+    console.error('Payload를 디코딩하는데 실패했습니다:', error);
   }
 
   // 검증: 패킷 구조 일치
   const errorMessage = payloadType.verify(payload);
   if (errorMessage) {
-    console.error(`패킷 구조가 일치하지 않습니다: ${errorMessage}`);
+    console.error('패킷 구조가 일치하지 않습니다:', errorMessage);
   }
 
   // 검증: 누락된 필드 존재여부

@@ -39,7 +39,7 @@ const sendPacket = (socket, packet) => {
 const client = new net.Socket();
 
 client.connect(config.server.port, config.server.host, async () => {
-  console.log('Connected to server');
+  console.log('Connected to server.');
   await loadProtos();
 
   const message = {
@@ -68,7 +68,7 @@ client.on('data', (data) => {
 });
 
 client.on('close', () => {
-  console.log('Connection closed');
+  console.log('Connection closed.');
 });
 
 client.on('error', (error) => {
