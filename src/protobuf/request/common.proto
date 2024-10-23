@@ -8,4 +8,4 @@ message Packet {
   string clientVersion = 3;
   uint32 sequence = 4;
   bytes payload = 5;
-}
+};

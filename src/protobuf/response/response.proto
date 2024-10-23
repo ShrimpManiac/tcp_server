@@ -8,4 +8,4 @@ message Response {
   int64 timestamp = 3;
   bytes data = 4;
   uint32 sequence = 5;
-}
+};
