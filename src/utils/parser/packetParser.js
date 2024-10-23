@@ -1,3 +1,4 @@
+import { config } from '../../config/config.js';
 import { getProtoTypeNameByHanderId } from '../../handlers/index.js';
 import { getProtoMessages } from '../../init/loadProtos.js';
 
@@ -18,8 +19,11 @@ export const packetParser = (data) => {
   const clientVersion = packet.clientVersion;
   const sequence = packet.sequence;
 
-  console.log(`clientVersion: ${clientVersion}`);
+  if (clientVersion !== config.clientVersion) {
+    console.error(`클라이언트 버전이 일치하지 않습니다`);
+  }
 
+  // Payload 파싱
   const protoTypeName = getProtoTypeNameByHanderId(handlerId);
   if (!protoTypeName) {
     console.error(`알 수 없는 핸들러ID: ${handlerId}`);
