@@ -36,7 +36,12 @@ export const packetParser = (data) => {
   try {
     payload = payloadType.decode(packet.payload);
   } catch (error) {
-    console.error(error);
+    console.error('Payload를 디코딩하는데 실패했습니다', error);
+  }
+
+  const errorMessage = payloadType.verify(payload);
+  if (errorMessage) {
+    console.error(errorMessage);
   }
 
   return { handlerId, userId, payload, sequence };
