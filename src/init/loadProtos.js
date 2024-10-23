@@ -47,3 +47,7 @@ export const loadProtos = async () => {
     console.error(`Protobuf 파일 로드 중 오류가 발생했습니다:`, error);
   }
 };
+
+export const getProtoMessages = () => {
+  return { ...protoMessages };
+};
