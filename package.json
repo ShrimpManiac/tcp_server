@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "migrate": "node src/db/migrations/createSchemas.js"
   },
   "repository": {
     "url": "https://github.com/ShrimpManiac/tcp_server",
