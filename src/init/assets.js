@@ -53,6 +53,7 @@ export const loadGameAssets = async () => {
 
     // 로드한 에셋 반환
     gameAssets = { stages, items, itemUnlocks };
+    console.log(`게임에셋이 로드되었습니다.`);
     return gameAssets;
   } catch (error) {
     console.error('게임에셋을 로드하는데 실패했습니다:', error.message);
