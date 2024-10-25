@@ -61,6 +61,14 @@ export const loadGameAssets = async () => {
 };
 
 /**
+ * 로드한 게임에셋 전체를 조회하는 함수
+ * @returns {JSON} JSON화된 모든 게임에셋
+ */
+export const getGameAssets = () => {
+  return gameAssets;
+};
+
+/**
  * 로드한 게임에셋을 조회하는 함수
  *
  * 호출 예시: const items = getGameAsset(ASSET_TYPE.ITEM);
