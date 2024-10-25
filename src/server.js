@@ -13,6 +13,6 @@ initServer()
     });
   })
   .catch((error) => {
-    console.error(error);
+    console.error('서버 초기화 중 오류가 발생했습니다:', error);
     process.exit(1);
   });

@@ -56,7 +56,7 @@ export const loadGameAssets = async () => {
     gameAssets = { stages, items, itemUnlocks };
     return gameAssets;
   } catch (error) {
-    throw new Error('게임에셋을 로드하는데 실패했습니다: ' + error.message);
+    console.error('게임에셋을 로드하는데 실패했습니다:', error.message);
   }
 };
 
@@ -78,7 +78,7 @@ export const getGameAsset = (assetType) => {
     case ASSET_TYPE.ITEM_UNLOCK:
       return itemUnlocks;
     default:
-      throw new Error('Invalid asset type: ' + assetType);
+      console.error('올바르지 않은 assetType입니다:', assetType);
   }
 };
 
@@ -101,7 +101,7 @@ export const getGameAssetById = (assetType, id) => {
     case ASSET_TYPE.ITEM_UNLOCK:
       return itemUnlocks.data.find((itemUnlock) => itemUnlock.id === id);
     default:
-      throw new Error('Invalid asset type: ' + assetType);
+      console.error('올바르지 않은 assetType입니다:', assetType);
   }
 };
 
@@ -135,7 +135,7 @@ export const getFirstGameAsset = (assetType) => {
     case ASSET_TYPE.ITEM_UNLOCK:
       return itemUnlocks.data[0].id;
     default:
-      throw new Error('Invalid asset type: ' + assetType);
+      console.error('올바르지 않은 assetType입니다:', assetType);
   }
 };
 
@@ -148,7 +148,7 @@ export const getStageNumber = (stageId) => {
   const { stages } = gameAssets;
   const stageDataIndex = stages.data.findIndex((stage) => stage.id === stageId);
   if (stageDataIndex === -1) {
-    throw new Error(`Stage not found: ${stageId}`);
+    console.error(`존재하지 않는 스테이지입니다: ${stageId}`);
   }
   const stageNumber = stageDataIndex + 1;
   return stageNumber;
