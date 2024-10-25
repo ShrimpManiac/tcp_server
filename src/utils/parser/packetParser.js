@@ -25,7 +25,7 @@ export const packetParser = (data) => {
   const sequence = packet.sequence;
 
   // 검증: 클라이언트 버전 일치
-  if (clientVersion !== config.clientVersion) {
+  if (clientVersion !== config.client.version) {
     throw new CustomError(
       ErrorCodes.CLIENT_VERSION_MISMATCH,
       '클라이언트 버전이 일치하지 않습니다.',
