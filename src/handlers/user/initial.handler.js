@@ -8,7 +8,7 @@ const initialHandler = async ({ socket, userId, payload }) => {
   try {
     const { deviceId } = payload;
 
-    let user = findUserByDeviceId(deviceId);
+    let user = await findUserByDeviceId(deviceId);
 
     if (!user) {
       user = await createUser(deviceId);
