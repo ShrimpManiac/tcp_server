@@ -4,9 +4,9 @@ import { handleError } from '../../utils/error/errorHandler.js';
 import { createResponse } from '../../utils/response/createResponse.js';
 
 const initialHandler = async ({ socket, userId, payload }) => {
-  const { deviceId } = payload;
-
   try {
+    const { deviceId } = payload;
+
     addUser(socket, deviceId);
 
     const initialResponse = createResponse(HANDLER_IDS.INITIAL, deviceId, RESPONSE_SUCCESS_CODE, {
