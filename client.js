@@ -2,10 +2,26 @@ import net from 'net';
 import { config } from './src/config/config.js';
 import { getProtoMessages, loadProtos } from './src/init/loadProtos.js';
 
-const readHeader = (buffer) => {
+let userId;
+let sequence;
+
+const createPacket = (handlerId, payload, clientVersion = '1.0.0', type, name) => {
+  const protoMessages = getProtoMessages();
+  const PayloadType = protoMessages[type][name];
+
+  if (!PayloadType) {
+    throw new Error('PayloadType을 찾을 수 없습니다.');
+  }
+
+  const payloadMessage = PayloadType.create(payload);
+  const payloadBuffer = PayloadType.encode(payloadMessage).finish();
+
   return {
-    length: buffer.readUInt32BE(0),
-    packetType: buffer.writeUInt8(config.packet.totalLength),
+    handlerId,
+    userId: '1',
+    clientVersion,
+    sequence: 0,
+    payload: payloadBuffer,
   };
 };
 
@@ -42,29 +58,38 @@ client.connect(config.server.port, config.server.host, async () => {
   console.log('Connected to server.');
   await loadProtos();
 
-  const message = {
-    handlerId: 2,
-    userId: 'xyz',
-    payload: {},
-    clientVersion: '1.0.0',
-    sequence: 0,
-  };
+  const successPacket = createPacket(0, { deviceId: 'xxxxx' }, '1.0.0', 'initial', 'InitialPacket');
 
-  sendPacket(client, message);
+  sendPacket(client, successPacket);
 });
 
 client.on('data', (data) => {
-  const buffer = Buffer.from(data); // 버퍼 객체의 메서드를 사용하기 위해 변환
+  // 1. 길이 정보 수신 (4바이트)
+  const length = data.readUInt32BE(0);
+  const totalHeaderLength = config.packet.totalLength + config.packet.typeLength;
 
-  const { handlerId, length } = readHeader(buffer);
-  console.log(`handlerId: ${handlerId}`);
-  console.log(`length: ${length}`);
+  // 2. 패킷 타입 정보 수신 (1바이트)
+  const packetType = data.readUInt8(4);
+  const packet = data.slice(totalHeaderLength, length); // 패킷 데이터
 
-  const headerSize = config.packet.totalLength + config.packet.typeLength;
-  // 메시지 추출
-  const message = buffer.subarray(headerSize); // 앞의 헤더 부분을 잘라낸다.
+  if (packetType === 1) {
+    const protoMessages = getProtoMessages();
+    const Response = protoMessages.response.Response;
 
-  console.log(`서버로부터 받은 메세지: ${message}`);
+    try {
+      const response = Response.decode(packet);
+
+      if (response.handlerId === 0) {
+        const responseData = JSON.parse(Buffer.from(response.data).toString());
+
+        userId = responseData.userId;
+        console.log('응답 데이터:', responseData);
+      }
+      sequence = response.sequence;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 });
 
 client.on('close', () => {
