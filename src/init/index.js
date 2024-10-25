@@ -5,8 +5,8 @@ const initServer = async () => {
   try {
     await loadGameAssets();
     await loadProtos();
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 };

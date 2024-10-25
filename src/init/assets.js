@@ -55,8 +55,8 @@ export const loadGameAssets = async () => {
     // 로드한 에셋 반환
     gameAssets = { stages, items, itemUnlocks };
     return gameAssets;
-  } catch (e) {
-    throw new Error('게임에셋을 로드하는데 실패했습니다: ' + e.message);
+  } catch (error) {
+    throw new Error('게임에셋을 로드하는데 실패했습니다: ' + error.message);
   }
 };
 
