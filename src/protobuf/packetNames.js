@@ -5,6 +5,9 @@ export const packetNames = {
   common: {
     Packet: 'common.Packet',
   },
+  game: {
+    CreateGamePayload: 'game.CreateGamePayload',
+  },
   response: {
     Response: 'response.Response',
   },
