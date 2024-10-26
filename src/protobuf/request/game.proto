@@ -1,3 +1,5 @@
+// 새로운 proto 파일 추가시 packetNames.js에도 추가되어야 합니다!
+
 syntax = "proto3";
 
 package game;
