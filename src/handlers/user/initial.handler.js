@@ -1,3 +1,8 @@
+/* 새로운 핸들러 추가시 다음 변수들도 업데이트 해주어야 합니다:
+- constants\handlerIds.js -> HANDLER_IDS
+- handlers\index.js -> handlers
+*/
+
 import { HANDLER_IDS, RESPONSE_SUCCESS_CODE } from '../../constants/handlerIds.js';
 import { createUser, findUserByDeviceId, updateUserLogin } from '../../db/user/user.db.js';
 import { addUser } from '../../session/user.session.js';

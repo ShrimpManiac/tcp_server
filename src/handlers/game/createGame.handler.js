@@ -1,3 +1,8 @@
+/* 새로운 핸들러 추가시 다음 변수들도 업데이트 해주어야 합니다:
+- constants\handlerIds.js -> HANDLER_IDS
+- handlers\index.js -> handlers
+*/
+
 import { v4 as uuidv4 } from 'uuid';
 import { addGameSession } from '../../session/game.session.js';
 import { handleError } from '../../utils/error/errorHandler.js';
