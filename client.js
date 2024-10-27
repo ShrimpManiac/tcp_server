@@ -70,7 +70,7 @@ client.connect(PORT, HOST, async () => {
   await delay(500);
 
   const createGamePacket = createPacket(
-    4,
+    1,
     { timestamp: Date.now() },
     '1.0.0',
     'game',
