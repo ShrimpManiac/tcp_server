@@ -29,8 +29,9 @@ export const onData = (socket) => async (data) => {
 
     // 3. 패킷 전체 길이 확인 후 데이터 수신
     // 패킷 데이터를 자르고 버퍼에서 제거
-    const packet = socket.buffer.subarray(totalHeaderLength);
-    socket.buffer = socket.buffer.subarray(0, totalHeaderLength);
+    const packet = socket.buffer.subarray(totalHeaderLength, length);
+    socket.buffer = socket.buffer.subarray(length);
+
     console.log(`length: ${length}, packetType: ${packetType}`);
     console.log(`packet: ${packet}`);
 
