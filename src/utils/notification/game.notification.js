@@ -3,7 +3,7 @@ import { PACKET_TYPE } from '../../constants/header.js';
 import { getProtoMessages } from '../../init/loadProtos.js';
 
 const makeNotification = (message, type) => {
-  const packetLength = Buffer.alloc(config.packet.packetLength);
+  const packetLength = Buffer.alloc(config.packet.totalLength);
   packetLength.writeUInt32BE(
     message.length + config.packet.totalLength + config.packet.typeLength,
     0,
