@@ -1,4 +1,6 @@
 import { GAME_STATE, MAX_PLAYERS } from '../../constants/game.js';
+import CustomError from '../../utils/error/customError.js';
+import { ErrorCodes } from '../../utils/error/errorCodes.js';
 
 class Game {
   constructor(id) {
@@ -9,7 +11,10 @@ class Game {
 
   addUser(user) {
     if (this.users.length > MAX_PLAYERS) {
-      throw new Error(`Game session is full.`);
+      throw new CustomError(
+        ErrorCodes.GAME_FULL,
+        `참가자 수가 최대인원에 도달하여 참가할 수 없습니다.`,
+      );
     }
     this.users.push(user);
 
