@@ -25,7 +25,7 @@ export const createLocationPacket = (users) => {
   return makeNotification(locationPacket, PACKET_TYPE.LOCATION);
 };
 
-export const gameStartPacket = (gameId, timestamp) => {
+export const gameStartNotification = (gameId, timestamp) => {
   const protoMessages = getProtoMessages();
   const Start = protoMessages.gameNotification.Start;
 
