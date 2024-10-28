@@ -12,7 +12,7 @@ const makeNotification = (message, type) => {
   const packetType = Buffer.alloc(config.packet.typeLength);
   packetType.writeUInt8(type, 0);
 
-  return Buffer.concat([packetLength, packetType]);
+  return Buffer.concat([packetLength, packetType, message]);
 };
 
 export const createPingPacket = (timestamp) => {
