@@ -39,11 +39,11 @@ export const packetParser = (data) => {
   }
 
   const [namespace, typeName] = protoTypeName.split('.');
-  const payloadType = protoMessages[namespace][typeName];
+  const PayloadType = protoMessages[namespace][typeName];
 
   let payload;
   try {
-    payload = payloadType.decode(packet.payload);
+    payload = PayloadType.decode(packet.payload);
   } catch (error) {
     throw new CustomError(
       ErrorCodes.PACKET_DECODE_ERROR,
@@ -52,7 +52,7 @@ export const packetParser = (data) => {
   }
 
   // 검증: 패킷 구조 일치
-  const errorMessage = payloadType.verify(payload);
+  const errorMessage = PayloadType.verify(payload);
   if (errorMessage) {
     throw new CustomError(
       ErrorCodes.PACKET_STRUCTURE_MISMATCH,
@@ -61,7 +61,7 @@ export const packetParser = (data) => {
   }
 
   // 검증: 누락된 필드 존재여부
-  const expectedFields = Object.keys(payloadType.fields);
+  const expectedFields = Object.keys(PayloadType.fields);
   const actualFields = Object.keys(payload);
   const missingFields = expectedFields.filter((field) => !actualFields.includes(field));
 
