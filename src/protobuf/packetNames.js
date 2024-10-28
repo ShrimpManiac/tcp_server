@@ -1,9 +1,9 @@
 export const packetNames = {
-  initial: {
-    InitialPacket: 'initial.InitialPacket',
-  },
   common: {
     Packet: 'common.Packet',
+  },
+  initial: {
+    InitialPacket: 'initial.InitialPacket',
   },
   game: {
     CreateGamePayload: 'game.CreateGamePayload',
