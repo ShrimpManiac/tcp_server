@@ -1,0 +1,20 @@
+// 새로운 proto 파일 추가시 packetNames.js에도 추가되어야 합니다!
+
+syntax = "proto3";
+
+package gameNotification;
+
+message LocationUpdate {
+  repeated UserLocation users = 1;
+
+  message userLocation {
+    string id = 1;
+    float x = 2;
+    float y = 3;
+  }
+}
+
+message Start [
+  string gameId = 1;
+  int64 timestamp = 2;
+]
