@@ -15,14 +15,14 @@ export const removeUser = (socket) => {
 };
 
 export const getNextSequence = (id) => {
-  const user = getuserById(id);
+  const user = getUserById(id);
   if (user) {
     return user.getNextSequence();
   }
   return null;
 };
 
-export const getuserById = (id) => {
+export const getUserById = (id) => {
   return userSessions.find((user) => user.id === id);
 };
 

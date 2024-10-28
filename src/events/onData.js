@@ -2,7 +2,7 @@ import { config } from '../config/config.js';
 import { PACKET_TYPE } from '../constants/header.js';
 import { getHandlerById } from '../handlers/index.js';
 import { getProtoMessages } from '../init/loadProtos.js';
-import { getuserById, getUserBySocket } from '../session/user.session.js';
+import { getUserById, getUserBySocket } from '../session/user.session.js';
 import CustomError from '../utils/error/customError.js';
 import { ErrorCodes } from '../utils/error/errorCodes.js';
 import { handleError } from '../utils/error/errorHandler.js';
@@ -52,7 +52,7 @@ export const onData = (socket) => async (data) => {
           const { handlerId, userId, payload, sequence } = packetParser(packet);
 
           // 검증: 시퀀스 일치
-          const user = getuserById(userId);
+          const user = getUserById(userId);
           // 유저가 접속해 있는 상황에서 시퀀스 검증
           if (user && user.sequence !== sequence) {
             throw new CustomError(ErrorCodes.INVALID_SEQUENCE, `잘못된 호출값입니다.`);

@@ -6,7 +6,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { addGameSession } from '../../session/game.session.js';
 import { handleError } from '../../utils/error/errorHandler.js';
-import { getuserById } from '../../session/user.session.js';
+import { getUserById } from '../../session/user.session.js';
 import CustomError from '../../utils/error/customError.js';
 import { ErrorCodes } from '../../utils/error/errorCodes.js';
 import { createResponse } from '../../utils/response/createResponse.js';
@@ -17,7 +17,7 @@ const createGameHandler = ({ socket, userId, payload }) => {
     const gameId = uuidv4();
     const gameSession = addGameSession(gameId);
 
-    const user = getuserById(userId);
+    const user = getUserById(userId);
     if (!user) {
       throw new CustomError(ErrorCodes.USER_NOT_FOUND, '유저를 찾을 수 없습니다.');
     }
