@@ -14,5 +14,7 @@ export const PACKET_TYPE_BYTES = 1; // 수정시 readUInt와 writeUInt 메소드
 export const PACKET_TYPE = Object.freeze({
   PING: 0,
   NORMAL: 1,
+  GAME_START: 2,
+  LOCATION: 4,
   // 추가시 해당 enum을 사용하는 switch문에 case 추가 필요
 });
