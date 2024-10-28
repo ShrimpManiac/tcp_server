@@ -17,3 +17,5 @@ class BaseManager {
     throw new Error('Method not implemented');
   }
 }
+
+export default BaseManager;
