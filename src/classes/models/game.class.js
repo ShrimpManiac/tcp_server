@@ -1,11 +1,14 @@
 import { GAME_STATE, MAX_PLAYERS } from '../../constants/game.js';
+import { USER_PING_INTERVAL } from '../../constants/interval.js';
 import CustomError from '../../utils/error/customError.js';
 import { ErrorCodes } from '../../utils/error/errorCodes.js';
+import IntervalManager from '../managers/interval.manager.js';
 
 class Game {
   constructor(id) {
     this.id = id;
     this.users = [];
+    this.intervalManager = new IntervalManager();
     this.state = GAME_STATE.WAITING;
   }
 
@@ -17,6 +20,8 @@ class Game {
       );
     }
     this.users.push(user);
+
+    this.intervalManager.addPlayer(user.id, user.ping.bind(user), USER_PING_INTERVAL);
 
     if (this.users.length === MAX_PLAYERS) {
       setTimeout(() => {
@@ -31,6 +36,8 @@ class Game {
 
   removeUser(userId) {
     this.users = this.users.filter((user) => user.id !== userId);
+
+    this.intervalManager.removePlayer(userId);
 
     if (this.users.length < MAX_PLAYERS) {
       this.state = GAME_STATE.WAITING;
