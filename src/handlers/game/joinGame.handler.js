@@ -24,9 +24,9 @@ export const joinGameHandler = ({ socket, userId, payload }) => {
     if (!user) {
       throw new CustomError(ErrorCodes.USER_NOT_FOUND, '유저를 찾을 수 없습니다.');
     }
-    const userExists = gameSession.getUser(user.id);
+    const userExists = gameSession.getPlayer(user.id);
     if (!userExists) {
-      gameSession.addUser(user);
+      gameSession.addPlayer(user);
     }
 
     const joinGameResponse = createResponse(HANDLER_IDS.JOIN_GAME, userId, RESPONSE_SUCCESS_CODE, {
