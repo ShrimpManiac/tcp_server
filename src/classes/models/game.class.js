@@ -2,7 +2,10 @@ import { GAME_STATE, MAX_PLAYERS } from '../../constants/game.js';
 import { USER_PING_INTERVAL } from '../../constants/interval.js';
 import CustomError from '../../utils/error/customError.js';
 import { ErrorCodes } from '../../utils/error/errorCodes.js';
-import { gameStartNotification } from '../../utils/notification/game.notification.js';
+import {
+  createLocationPacket,
+  gameStartNotification,
+} from '../../utils/notification/game.notification.js';
 import IntervalManager from '../managers/interval.manager.js';
 
 class Game {
@@ -57,6 +60,15 @@ class Game {
     console.log(`maxLatency: ${this.getMaxLatency()}`);
 
     this.players.forEach((player) => player.socket.write(startPacket));
+  }
+
+  getAllLocations() {
+    const maxLatency = this.getMaxLatency();
+    const locationData = this.players.map((player) => {
+      const { x, y } = player.calculatePosition(maxLatency);
+      return { id: player.id, x, y };
+    });
+    return createLocationPacket(locationData);
   }
 }
 
