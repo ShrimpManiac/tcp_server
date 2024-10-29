@@ -17,7 +17,7 @@ const makeNotification = (message, type) => {
 
 export const createLocationPacket = (users) => {
   const protoMessages = getProtoMessages();
-  const Location = protoMessages.gameNotification.LocationUpdate;
+  const Location = protoMessages.gameNotification.UpdateLocation;
 
   const payload = { users };
   const message = Location.create(payload);
