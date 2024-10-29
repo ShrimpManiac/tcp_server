@@ -2,6 +2,7 @@ import { GAME_STATE, MAX_PLAYERS } from '../../constants/game.js';
 import { USER_PING_INTERVAL } from '../../constants/interval.js';
 import CustomError from '../../utils/error/customError.js';
 import { ErrorCodes } from '../../utils/error/errorCodes.js';
+import { gameStartNotification } from '../../utils/notification/game.notification.js';
 import IntervalManager from '../managers/interval.manager.js';
 
 class Game {
@@ -44,8 +45,18 @@ class Game {
     }
   }
 
+  getMaxLatency() {
+    let maxLatency = 0;
+    this.players.forEach((player) => (maxLatency = Math.max(maxLatency, player.latency)));
+    return maxLatency;
+  }
+
   startGame() {
     this.state = GAME_STATE.IN_PROGRESS;
+    const startPacket = gameStartNotification(this.id, Date.now());
+    console.log(`maxLatency: ${this.getMaxLatency()}`);
+
+    this.players.forEach((player) => player.socket.write(startPacket));
   }
 }
 
