@@ -131,8 +131,8 @@ client.on('data', (data) => {
       }
       console.log('응답 데이터:', responseData);
       sequence = response.sequence;
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error(`pakcetType === 1 오류 발생: ${error}`);
     }
   } else if (packetType === 0) {
     try {
@@ -163,16 +163,16 @@ client.on('data', (data) => {
         updateLocation(client);
       }, 1000);
     } catch (error) {
-      console.error(error);
+      console.error(`pakcetType === 2 오류 발생: ${error}`);
     }
   } else if (packetType === 3) {
     try {
-      const UpdateLocation = protoMessages.gameNotification.updateLocation;
+      const UpdateLocation = protoMessages.gameNotification.UpdateLocation;
       const updateLocationMessage = UpdateLocation.decode(packet);
 
       console.log('응답 데이터:', updateLocationMessage);
     } catch (error) {
-      console.error(error);
+      console.error(`pakcetType === 3 오류 발생: ${error}`);
     }
   }
 });
