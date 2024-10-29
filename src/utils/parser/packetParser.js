@@ -1,5 +1,5 @@
 import { config } from '../../config/config.js';
-import { getProtoTypeNameByHanderId } from '../../handlers/index.js';
+import { getProtoTypeNameByHandlerId } from '../../handlers/index.js';
 import { getProtoMessages } from '../../init/loadProtos.js';
 import CustomError from '../error/customError.js';
 import { ErrorCodes } from '../error/errorCodes.js';
@@ -33,7 +33,7 @@ export const packetParser = (data) => {
   }
 
   // Payload 파싱
-  const protoTypeName = getProtoTypeNameByHanderId(handlerId);
+  const protoTypeName = getProtoTypeNameByHandlerId(handlerId);
   if (!protoTypeName) {
     throw new CustomError(ErrorCodes.UNKNOWN_HANDLER_ID, `알 수 없는 핸들러ID: ${handlerId}`);
   }

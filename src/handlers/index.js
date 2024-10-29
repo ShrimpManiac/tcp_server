@@ -35,7 +35,7 @@ export const getHandlerById = (handlerId) => {
   return handlers[handlerId].handler;
 };
 
-export const getProtoTypeNameByHanderId = (handlerId) => {
+export const getProtoTypeNameByHandlerId = (handlerId) => {
   if (!handlers[handlerId]) {
     throw new CustomError(
       ErrorCodes.UNKNOWN_HANDLER_ID,
