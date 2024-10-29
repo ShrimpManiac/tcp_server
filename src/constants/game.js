@@ -3,4 +3,4 @@ export const GAME_STATE = Object.freeze({
   IN_PROGRESS: 1,
 });
 
-export const MAX_PLAYERS = 4;
+export const MAX_PLAYERS = 2;
